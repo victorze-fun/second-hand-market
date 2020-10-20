@@ -5,6 +5,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 @Data
@@ -17,6 +18,7 @@ public class User {
     @GeneratedValue
     private Long id;
 
+    @NotBlank(message="El nombre es obligatorio")
     private String name;
     private String lastName;
     private String avatar;
@@ -25,7 +27,10 @@ public class User {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 
+    @NotBlank(message="El correo es obligatorio")
     private String email;
+
+    @NotBlank(message="el password es obligatorio")
     private String password;
 
     public User(String name, String lastName, String avatar, Date createdAt, String email, String password) {
