@@ -33,10 +33,9 @@ public class User {
     @NotBlank(message="el password es obligatorio")
     private String password;
 
-    public User(String name, String lastName, String avatar, Date createdAt, String email, String password) {
+    public User(String name, String lastName, Date createdAt, String email, String password) {
         this.name = name;
         this.lastName = lastName;
-        this.avatar = avatar;
         this.createdAt = createdAt;
         this.email = email;
         this.password = password;
