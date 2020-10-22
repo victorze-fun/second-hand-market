@@ -5,6 +5,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
@@ -27,7 +28,7 @@ public class User {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 
-    @NotBlank(message="El correo es obligatorio")
+    @Email(message = "El correo electrónico debe ser válido")
     private String email;
 
     @NotBlank(message="el password es obligatorio")

@@ -24,10 +24,10 @@ public class SecondHandMarketApplication {
 	public CommandLineRunner initData(UserService userService, ProductService productService) {
 		return args -> {
 
-			User user = new User("Luis Miguel", "López Magaña", null, "luismi.lopez@openwebinars.net", "luismi");
+			User user = new User("Victor Hugo", "López", null, "victor.hugo@mail.net", "vic");
 			user = userService.save(user);
 
-			User user2 = new User("Antonio", "García Martín", null, "antonio.garcia@openwebinars.net", "antonio");
+			User user2 = new User("Mario", "García", null, "mario.garcia@mail.net", "mario");
 			user2 = userService.save(user2);
 
 			List<Product> listado = Arrays.asList(

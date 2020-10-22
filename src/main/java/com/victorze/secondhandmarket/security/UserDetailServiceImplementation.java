@@ -19,8 +19,7 @@ public class UserDetailServiceImplementation implements UserDetailsService {
         User user = userRepository.findFirstByEmail(username);
 
         if (user != null) {
-            UserBuilder builder = null;
-            builder = org.springframework.security.core.userdetails.User.withUsername(username);
+            UserBuilder builder = org.springframework.security.core.userdetails.User.withUsername(username);
             builder.disabled(false);
             builder.password(user.getPassword());
             builder.authorities(new SimpleGrantedAuthority("ROLE_USER"));
@@ -28,4 +27,5 @@ public class UserDetailServiceImplementation implements UserDetailsService {
         }
         throw new UsernameNotFoundException("User '" + username + "' not found");
     }
+
 }
