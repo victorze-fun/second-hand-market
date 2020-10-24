@@ -1,0 +1,36 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout.html}">
+
+<head>
+    <title>Index</title>
+</head>
+<body>
+
+<div layout:fragment="content" class="container">
+	<div class="row">
+		<div class="col-lg-4" th:each="product : ${products}">
+			<div class="card shadow mb-5">
+				<a th:href="@{/public/product/{id}(id=${product.id})}" class="text-dark text-decoration-none">
+					<div class="card-header">
+						<span th:text="${product.name}">NOMBRE DEL PRODUCTO</span>
+  					</div>
+					<img th:src="${#strings.isEmpty(product.image)} ? 'http://placehold.it/350x260' : ${product.image}" class="card-img-top">
+				</a>
+				<div class="card-footer">
+					<div class="row">
+						<div class="col-md-6">
+							<span th:text="${#numbers.formatCurrency(product.price)}"></span>
+						</div>
+						<div class="col-md-6" sec:authorize="isAuthenticated()" th:if="${#authentication.name != product.owner.email}">
+							<a th:href="@{/app/cart/add/{id}(id=${product.id})}" class="btn btn-success float-right">
+								Comprar
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>
