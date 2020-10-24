@@ -1,4 +1,5 @@
-.login {
+.login,
+.register {
 	width: 30rem;
 	margin: 10rem auto;
 }

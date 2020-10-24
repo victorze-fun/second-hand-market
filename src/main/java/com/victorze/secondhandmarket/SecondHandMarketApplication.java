@@ -24,7 +24,7 @@ public class SecondHandMarketApplication {
 	public CommandLineRunner initData(UserService userService, ProductService productService) {
 		return args -> {
 
-			User user = new User("Victor Hugo", "López", null, "victor.hugo@mail.net", "vic");
+			User user = new User("Victor Hugo", "López", null, "vic@mail.com", "vic");
 			user = userService.save(user);
 
 			User user2 = new User("Mario", "García", null, "mario.garcia@mail.net", "mario");
