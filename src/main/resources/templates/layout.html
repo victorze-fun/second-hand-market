@@ -6,12 +6,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link th:href="@{/css/styles.css}" rel="stylesheet" />
-<title>Second Hand Market</title>
+<title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">SHM</title>
 </head>
 <body>
-	<div class="container" th:insert="fragments/navbar.html :: navbar" ></div>
+	<div th:insert="fragments/navbar.html :: navbar" class="container" ></div>
 
-	<section layout:fragment="content"></section>
+	<div layout:fragment="content" class="container"></div>
 
 	<script src="/webjars/jquery/jquery.min.js"></script>
 	<script src="/webjars/bootstrap/js/bootstrap.bundle.min.js"></script>
