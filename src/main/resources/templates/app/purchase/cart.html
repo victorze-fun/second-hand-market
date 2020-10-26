@@ -1,0 +1,61 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout.html}">
+
+<head>
+    <title>Cart</title>
+</head>
+<body>
+
+<div layout:fragment="content" class="container">
+	<div class="jumbotron jumbotron-fluid" th:if="${cart == null}">
+		<div class="container">
+			<h2 class="display-4 text-center">Aún no ha seleccionado ningún producto para comprar</h2>
+		</div>
+	</div>
+
+	<div th:unless="${cart == null}">
+		<table class="table mt-5" th:unless="${cart == null}">
+			<thead>
+				<tr>
+					<th>Producto</th>
+					<th>Total</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="product : ${cart}">
+					<td class="media">
+						<img th:src="${#strings.isEmpty(product.image)} ? 'http://placehold.it/350x260' : ${product.image}" style="max-width: 8rem" class="mr-3">
+						<div class="media-body">
+							<h5 th:text="${product.name}" class="mt-0 mb-1">List-based media object</h5>
+							by
+							<span th:text="${product.owner.email}"></span>
+						</div>
+					</td>
+					<td th:text="${#numbers.formatCurrency(product.price)}">Total</td>
+					<td>
+						<a th:href="@{/app/cart/remove/{id}(id=${product.id})}" class="btn btn-danger">
+							<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z" /></svg>
+							Eliminar
+						</a>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td></td>
+					<td><h4>Total</h4></td>
+					<td th:text="${#numbers.formatCurrency(total_cart)}">$31.53></td>
+				</tr>
+			</tfoot>
+		</table>
+
+		<div class="float-right d-inline-block mr-5">
+			<a th:href="@{/public/}" class="btn btn-light border">Continuar comprando</a>
+			<a th:href="@{/app/cart/finalize}" class="btn btn-success">Finalizar compra</a>
+		</div>
+	</div>
+</div>
+
+
+</body>
+</html>

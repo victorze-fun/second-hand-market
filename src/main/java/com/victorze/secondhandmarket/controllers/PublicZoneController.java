@@ -41,7 +41,7 @@ public class PublicZoneController {
 		if (product != null) {
 			model.addAttribute("product", product);
 		}
-		return "redirect:/public";
+		return "redirect:/public/";
 	}
 
 }
