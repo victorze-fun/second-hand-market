@@ -6,14 +6,15 @@
 <body>
 
 <div layout:fragment="content" class="container">
-	<div class="row">
+	<div class="row mt-5">
 		<div class="col-lg-4" th:each="product : ${products}">
-			<div class="card shadow mb-5">
+			<div class="card shadow mb-3">
 				<a th:href="@{/public/product/{id}(id=${product.id})}" class="text-dark text-decoration-none">
 					<div class="card-header">
 						<span th:text="${product.name}">NOMBRE DEL PRODUCTO</span>
   					</div>
-					<img th:src="${#strings.isEmpty(product.image)} ? 'http://placehold.it/350x260' : ${product.image}" class="card-img-top">
+					<img th:src="${#strings.isEmpty(product.image)} ? 'http://placehold.it/350x260' : ${product.image}"
+						 class="d-block m-auto mw-100" style="height: 15rem;">
 				</a>
 				<div class="card-footer">
 					<div class="row">

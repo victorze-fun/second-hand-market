@@ -17,7 +17,7 @@
 			</li>
 		</ul>
 
-		<form class="form-inline my-2 my-lg-0">
+		<form class="form-inline">
 			<input class="form-control mr-sm-2" type="search" placeholder="Buscar" name="q" th:value="${param.q}">
 		</form>
 		<ul class="navbar-nav">
@@ -35,7 +35,7 @@
 			</li>
 			<li class="nav-item dropdown" sec:authorize="isAuthenticated()">
 				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					<span th:text="${#authentication.name}">Menú</span>
+					<span th:text="${#authentication.name}">Menï¿½</span>
 				</a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 					<a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()">
