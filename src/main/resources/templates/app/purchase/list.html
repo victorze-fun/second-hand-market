@@ -1,0 +1,27 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout.html}">
+
+<head>
+    <title>My Purchases</title>
+</head>
+<body>
+
+<div layout:fragment="content" class="mt-5" style="width: 25rem; margin: 0 auto;">
+	<table class="table">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Fecha</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="purchase : ${my_purchases}">
+				<td><span th:text="${purchase.id}">1</span></td>
+				<td><span th:text="${#dates.format(purchase.createdAt,'dd/MMM/yyyy HH:mm')}"></span></td>
+				<td><a th:href="@{/app/purchase/invoice/{id}(id=${purchase.id})}" class="btn btn-info">Ver factura</a></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+</body>

@@ -1,0 +1,54 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout.html}">
+
+<head>
+    <title>Index</title>
+</head>
+<body>
+
+<div layout:fragment="content" class="invoice-container mt-5">
+	<div class="row">
+		<h2 class="col-md-6">
+			Factura
+		</h2>
+		<h3 class="col-md-6 text-right">
+			Compra #<span th:text="${purchase.id}"></span>
+		</h3>
+	</div>
+	<hr />
+	<div class="row">
+		<div class="col-md-6 d-flex flex-column">
+			<span class="font-weight-bold">Comprado por:</span>
+			<span th:text="${purchase.owner.name + ' ' + purchase.owner.lastName}"></span>
+			<span th:text="${purchase.owner.email}"></span>
+		</div>
+		<div class="col-md-6 d-flex flex-column text-right">
+			<span class="font-weight-bold">Fecha de compra:</span>
+			<span th:text="${#dates.format(purchase.createdAt,'dd/MMM/yyyy HH:mm')}"></span>
+		</div>
+	</div>
+
+	<div class="card mt-4">
+		<div class="card-header font-weight-bold">Listado de productos</div>
+		<table class="table table-borderless">
+			<thead>
+				<tr>
+					<th>Producto</th>
+					<th class="text-right">Precio</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="product : ${products}">
+					<td><span th:text="${product.name}"></span></td>
+					<td  class="text-right"><span th:text="${#numbers.formatCurrency(product.price)}"></span></td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="card-footer text-right">
+			<span class="font-weight-bold mr-5">Total</span>
+			<span th:text="${#numbers.formatCurrency(total_purchase)}" class="text-right"></span>
+  		</div>
+	</div>
+
+</div>
+
+</body>

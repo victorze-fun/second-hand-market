@@ -96,5 +96,38 @@ public class PurchaseController {
 		}
 		return "redirect:/app/cart";
 	}
+	
+	@GetMapping("/cart/finalize")
+	public String checkout() {
+		List<Long> content = (List<Long>) session.getAttribute("cart");
+		if (content == null) {
+			return "redirect:/public";
+		}
+		List<Product> products = productsCart();
+		Purchase purchase = purchaseService.save(new Purchase(), user);
+		
+		products.forEach(product -> purchaseService.addProductPurchase(product, purchase));
+		session.removeAttribute("cart");
+		
+		return "redirect:/app/purchase/invoice/" + purchase.getId();
+	}
+	
+	@GetMapping("/purchase/invoice/{id}")
+	public String invoice(Model model, @PathVariable Long id) {
+		Purchase purchase =  purchaseService.findById(id);
+		List<Product> products = productService.findByPurchase(purchase);
+		model.addAttribute("products", products);
+		model.addAttribute("purchase", purchase);
+		BigDecimal totalPurchase =  products.stream()
+										.map(p -> p.getPrice())
+										.reduce(BigDecimal.ZERO, BigDecimal::add);
+		model.addAttribute("total_purchase", totalPurchase);
+		return "/app/purchase/invoice";
+	}
+	
+	@GetMapping("/mypurchases")
+	public String showMyPurchases(Model model) {
+		return "/app/purchase/list";
+	}
 
 }
