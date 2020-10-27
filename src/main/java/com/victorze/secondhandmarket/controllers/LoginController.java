@@ -6,15 +6,22 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
 import com.victorze.secondhandmarket.models.User;
 import com.victorze.secondhandmarket.services.UserService;
+import com.victorze.secondhandmarket.upload.StorageService;
 
 @Controller
 public class LoginController {
 	
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	StorageService storageService;
 	
 	@GetMapping("/")
 	public String welcome() {
@@ -28,7 +35,13 @@ public class LoginController {
 	}
 	
 	@PostMapping("/auth/register")
-	public String register(@ModelAttribute User user) {
+	public String register(@ModelAttribute User user,  @RequestParam("file") MultipartFile file) {		
+		if (!file.isEmpty()) {
+			String imagen = storageService.store(file);
+			user.setAvatar(MvcUriComponentsBuilder
+					.fromMethodName(FilesController.class, "serveFile", imagen).build().toUriString());
+			
+		}
 		userService.save(user);
 		return "redirect:/auth/login";
 	}

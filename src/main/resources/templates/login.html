@@ -33,23 +33,27 @@
 	<div class="card register " id="signupbox" style="display: none;">
 		<h5 class="card-header">Crear una nueva cuenta</h5>
 		<div class="card-body">
-			<form th:action="@{/auth/register}" th:method="POST">
+			<form th:action="@{/auth/register}" th:method="POST" enctype="multipart/form-data" th:object="${user}">
 				<div class="form-group">
 					<label for="email">Email</label>
-					<input type="email" class="form-control" name="email" id="email" required>
+					<input type="email" class="form-control" name="email" id="email" th:field="*{email}" required>
 				</div>
 				<div class="form-group">
 					<label for="name">Nombre</label>
-					<input type="text" class="form-control" id="name" name="name" required>
+					<input type="text" class="form-control" id="name" name="name" th:field="*{name}" required>
 				</div>
 				<div class="form-group">
 					<label for="lastName">Apellidos</label>
-					<input type="text" class="form-control" id="lastName" name="lastName" required>
+					<input type="text" class="form-control" id="lastName" name="lastName" th:field="*{lastName}">
 				</div>
 				<div class="form-group">
 					<label for="password">Password</label>
-					<input type="password" class="form-control" name="password" id="password" required>
+					<input type="password" class="form-control" name="password" id="password" th:field="*{password}" required>
 				</div>
+				<div class="form-group">
+    				<label for="file">Avatar</label>
+    				<input type="file" class="form-control-file" id="file" name="file">
+  				</div>
 				<button type="submit" class="btn btn-primary">Continuar</button>
 					o
 					<a href="#" onClick="$('#signupbox').hide(); $('#loginbox').show()">
