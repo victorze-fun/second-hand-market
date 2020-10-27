@@ -1,0 +1,47 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout.html}">
+
+<head>
+    <title>Index</title>
+</head>
+<body>
+
+<div layout:fragment="content" class="container">
+	<div class="mt-5">
+		<a th:href="@{/app/product/new}" class="btn btn-lg btn-info">Nuevo producto</a>
+	</div>
+	<div class="row mt-5">
+		<div class="col-lg-4" th:each="product : ${myproducts}">
+			<div class="card shadow mb-3">
+				<div class="card-header">
+					<span th:text="${product.name}">NOMBRE DEL PRODUCTO</span>
+					<a th:if="${product.purchase == null}" type="button" class="close" aria-label="Close"
+					   th:href="@{/app/myproducts/{id}/delete(id=${product.id})}" onclick="return confirm('¿Esta usted seguro de eliminar el producto?')">
+  						<span aria-hidden="true">&times;</span>
+					</a>
+  				</div>
+				<a th:href="@{/public/product/{id}(id=${product.id})}" class="text-dark text-decoration-none">
+					<img th:src="${#strings.isEmpty(product.image)} ? 'http://placehold.it/350x260' : ${product.image}"
+						 class="d-block m-auto mw-100" style="height: 15rem;">
+				</a>
+				<div class="card-footer">
+					<div class="row">
+						<div class="col-md-6">
+							<span th:text="${#numbers.formatCurrency(product.price)}"></span>
+						</div>
+						<div class="col-md-6">
+							<span th:if="${product.purchase != null}" class="px-2 bg-secondary text-white rounded-sm float-right">
+								<small>Vendido</small>
+							</span>
+							<span th:unless="${product.purchase != null} " class="px-2 bg-secondary text-white rounded-sm float-right">
+								<small>Sin vender</small>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>
