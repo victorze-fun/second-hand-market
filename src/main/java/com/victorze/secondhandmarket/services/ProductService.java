@@ -39,7 +39,7 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public List<Product> findByOwner(User u) {
+    public List<Product> findOfOwner(User u) {
         return productRepository.findByOwner(u);
     }
 
