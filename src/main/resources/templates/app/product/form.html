@@ -1,0 +1,30 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout.html}">
+
+<head>
+    <title>Product</title>
+</head>
+<body>
+
+<div layout:fragment="content" class="container">
+	<form method="post" enctype="multipart/form-data" th:object="${product}" class="mt-5 mx-auto" style="width: 25rem;"
+		  th:action="${product.id == null} ? @{/app/product/new/submit} : @{/app/product/edit/submit}">
+		<h1 th:text="${product.id == null} ? 'Nuevo producto' : 'Editar producto'"></h1>
+		<input type="hidden" id="id" name="id" th:field="*{id}" />
+		<div class="form-group">
+			<label for="name">Nombre</label>
+			<input type="text" class="form-control" id="name" placeholder="Nombre" th:field="*{name}">
+		</div>
+		<div class="form-group">
+			<label for="price">Precio</label>
+			<input type="number" class="form-control" id="price" placeholder="Precio" th:field="*{price}">
+		</div>
+		<div class="form-group">
+    		<label for="file">Imagen</label>
+    		<input type="file" class="form-control-file" id="file" name="file">
+  		</div>
+		<button type="submit" class="btn btn-primary">Enviar</button>
+	</form>
+</div>
+
+</body>
+</html>
