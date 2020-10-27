@@ -12,11 +12,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
 import com.victorze.secondhandmarket.models.Product;
 import com.victorze.secondhandmarket.models.User;
 import com.victorze.secondhandmarket.services.ProductService;
 import com.victorze.secondhandmarket.services.UserService;
+import com.victorze.secondhandmarket.upload.StorageService;
 
 @Controller
 @RequestMapping("/app")
@@ -27,6 +30,9 @@ public class ProductController {
 	 
 	 @Autowired
 	 UserService userService;
+	 
+	 @Autowired
+	 StorageService storageService;
 	 
 	 private User user;
 	 
@@ -63,7 +69,12 @@ public class ProductController {
 	}
 	
 	@PostMapping("/product/new/submit")
-	public String newProductSubmit(@ModelAttribute Product product){
+	public String newProductSubmit(@ModelAttribute Product product, @RequestParam("file") MultipartFile file) {
+		if (!file.isEmpty()) {
+			String image = storageService.store(file);
+			product.setImage(MvcUriComponentsBuilder
+						.fromMethodName(FilesController.class, "serveFile", image).build().toUriString());
+		}
 		product.setOwner(user);
 		productService.save(product);
 		return "redirect:/app/myproducts";

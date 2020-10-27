@@ -25,7 +25,7 @@ public class Product {
     @Digits(integer=8, fraction=2)
     private BigDecimal price;
 
-//    @NotBlank(message="La imagen es obligatoria")
+    @NotBlank(message="La imagen es obligatoria")
     private String image;
 
     @ManyToOne

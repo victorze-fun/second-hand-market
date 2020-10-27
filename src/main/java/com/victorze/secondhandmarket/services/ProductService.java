@@ -4,6 +4,8 @@ import com.victorze.secondhandmarket.models.Product;
 import com.victorze.secondhandmarket.models.Purchase;
 import com.victorze.secondhandmarket.models.User;
 import com.victorze.secondhandmarket.repositories.ProductRepository;
+import com.victorze.secondhandmarket.upload.StorageService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,16 +16,26 @@ public class ProductService {
 
     @Autowired
     ProductRepository productRepository;
+    
+    @Autowired
+    StorageService storageService;
 
     public Product save(Product p) {
         return productRepository.save(p);
     }
 
     public void deleteById(long id) {
+    	Product product = findById(id);
+    	if (product != null) {
+    		storageService.delete(product.getImage());
+    	}
         productRepository.deleteById(id);
     }
 
     public void delete(Product product) {
+    	if (!product.getImage().isEmpty()) {
+    		storageService.delete(product.getImage());
+    	}
         productRepository.delete(product);
     }
 

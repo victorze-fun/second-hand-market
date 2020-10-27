@@ -37,9 +37,11 @@ public class PublicZoneController {
 	@GetMapping("/product/{id}")
 	public String showProduct(Model model, @PathVariable Long id) {
 		Product product = productService.findById(id);
+		System.out.println(product);
 		
 		if (product != null) {
 			model.addAttribute("product", product);
+			return "product";
 		}
 		return "redirect:/public/";
 	}

@@ -1,0 +1,32 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout.html}">
+
+<head>
+    <title>Product</title>
+</head>
+<body>
+
+<div layout:fragment="content" class="container">
+	<div class="row mt-5">
+		<div class="col-md-6 text-center">
+			<img src="https://placehold.it/1200x600?text=SIN%20IMAGEN"
+				 th:src="${#strings.isEmpty(product.image)} ? 'https://placehold.it/1200x600?text=SIN%20IMAGEN' : ${product.image}"
+				 alt="Image" style="width: 15rem;">
+			<h3 th:text="${product.name}"></h3>
+			<strong th:text="${#numbers.formatCurrency(product.price)}"></strong>
+			<a th:href="@{/app/cart/add/{id}(id=${product.id})}" 
+			   type="button" class="btn btn-lg btn-success d-block mt-3 w-50 mx-auto" sec:authorize="isAuthenticated()"
+			   th:if="${#authentication.name != product.owner.email}">
+						<span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;Comprar
+			</a>
+		</div>
+		<div class="col-md-6 text-center">
+			<img th:src="${#strings.isEmpty(product.owner.avatar)} ? @{https://picsum.photos/300} : ${product.owner.avatar}"
+				 width="140" height="140" class="rounded-circle">
+			<div><strong th:text="${product.owner.name + ' ' + product.owner.lastName}"></strong></div>
+			<div th:text="${product.owner.email}"></div>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>
