@@ -1,15 +1,15 @@
 package com.victorze.secondhandmarket.services;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.victorze.secondhandmarket.models.Product;
 import com.victorze.secondhandmarket.models.Purchase;
 import com.victorze.secondhandmarket.models.User;
 import com.victorze.secondhandmarket.repositories.ProductRepository;
 import com.victorze.secondhandmarket.upload.StorageService;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class ProductService {

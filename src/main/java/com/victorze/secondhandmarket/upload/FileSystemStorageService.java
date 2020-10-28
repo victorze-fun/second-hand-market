@@ -17,7 +17,6 @@ import org.springframework.util.FileSystemUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-
 @Service
 public class FileSystemStorageService implements StorageService {
 
@@ -106,7 +105,6 @@ public class FileSystemStorageService implements StorageService {
 		} catch (IOException e) {
 			throw new StorageException("Error al eliminar un fichero", e);
 		}
-
 	}
 
 }
